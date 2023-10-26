@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Search Structura issues</title>
+</head>
+<body>
+    <h1>Search structura errors</h1>
+    <br><br>
+    <input type="text" style="width:75%;height:25px;font-size:medium;" placeholder="Search errors" id="search">
+    <button style="height:30px;width:70px;font-size:medium;" onclick="search()">Go</button>
+    <br><br>
+    <div id="results"></div>
+    <p>To view all error codes visit <a href="https://github.com/hegehog8761/structura-tests/blob/main/errors.md">this</a> page</p>
+    <script>
+        document.getElementById("search").addEventListener("keyup", function(event) {
+            if (event.keyCode == 13) {
+                search()
+            }
+        })
+        function search() {
+
+            var query = document.getElementById("search").value
+            if (query == "") {
+                alert("You must enter a search term!")
+                return false
+            }
+            var results = document.getElementById("results")
+            results.innerHTML = "<p>Searching, please wait...</p>"
+            fetch("https://raw.githubusercontent.com/hegehog8761/structura-tests/main/errors.md")
+                .then(response => response.text())
+                    .then(data => {
+                        var lines = data.split("\n")
+                        lines = lines.filter(line => String(line).startsWith("| <a"))
+                        var no_results = true
+                        lines.forEach(line => {
+                            let anchor = line.split("<a name=\"")[1].split("\"></a>")[0]
+                            let err_code = line.split("</a> ")[1].split("|")[0]
+                            if (err_code.toLowerCase().search(query.toLowerCase()) == -1) { //Search error codes for query
+                                if (query.toLowerCase().search(err_code.toLowerCase()) == -1) { //Search query for error codes
+                                    q_words = query.split(" ")
+                                    err_words = err_code.split(" ")
+                                    matches = 0
+                                    q_words.forEach(q_word => {
+                                        err_words.forEach(err_word => {
+                                            if (q_word.toLowerCase() == err_word.toLowerCase()) {
+                                                matches++
+                                            }
+                                        })
+                                    })
+                                    permon = (matches*2) / (q_words.length + err_words.length)
+                                    if (permon < 0.7) {
+                                        return
+                                    }
+                                }
+                            }
+                            no_results = false
+                            results.innerHTML = results.innerHTML + `<a href="https://github.com/hegehog8761/structura-tests/blob/main/errors.md#${anchor}">${err_code}</a><br><br>`
+                        })
+                        if (no_results) {
+                            results.innerHTML="<p>No great matches were found, try searching using another term or looking through the <a href=\"https://github.com/hegehog8761/structura-tests/blob/main/errors.md\">errors file</a>"
+                        } else {
+                            results.innerHTML = results.innerHTML.split("<p>Searching, please wait...</p>")[1]
+                        }
+                    })
+
+        }
+    </script>
+</body>
+</html>
