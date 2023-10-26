@@ -3,7 +3,7 @@
 ## App errors
 | Error code | Error example | Meaning | Solution |
 |------------|---------------|---------|----------|
-|Non-Compound root tags is not supported | ![image](https://raw.githubusercontent.com/hegehog8761/structura-tests/main/images/non-compound_roots.png) | A part of the file is not formatted as it would normally be so the file could not be converted | Make sure that you aren't exporting to a folder that is used by Microsoft OneDrive, you can ensure this by saving the file to `This PC->C: Drive->Users->Your username->Downloads`
+|[Non-Compound root tags is not supported](#non-compund_roots) | ![image](https://raw.githubusercontent.com/hegehog8761/structura-tests/main/images/non-compound_roots.png) | A part of the file is not formatted as it would normally be so the file could not be converted | Make sure that you aren't exporting to a folder that is used by Microsoft OneDrive, you can ensure this by saving the file to `This PC->C: Drive->Users->Your username->Downloads`
 |ModuleNotFoundError: No module named ... | ![image](https://raw.githubusercontent.com/hegehog8761/structura-tests/main/images/module_not_found.png) | Some of the files required could not be found on your computer | Make sure that you are downloading **all of** the files from the github page and run `pip install -r requirements.txt` if you are running it using python (probably not if you are not sure) in the folder you have all of the other files in |
 
  
