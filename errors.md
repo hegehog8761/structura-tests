@@ -1,5 +1,5 @@
 # Structura
-[Skip to bot errors](#bot-errors)
+[Skip to bot errors](#bot-errors) <br>
 To search visit [this website](https://htmlpreview.github.io/?https://github.com/hegehog8761/structura-tests/blob/main/search.html)
 ## App errors
 | Error code | Error example | Meaning | Solution |
